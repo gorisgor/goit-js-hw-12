@@ -24,7 +24,8 @@ export function renderImageCards(data, galleryElement) {
           <p class="card-text">Comments <span>${comments}</span></p>
           <p class="card-text">Downloads <span>${downloads}</span></p>
         </div>
-      </li>`;
+      </li> 
+      <button type = "submit" class ="load-more">Load more</button>`;
       })
       .join('');
 
