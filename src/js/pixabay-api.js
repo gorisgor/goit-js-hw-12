@@ -1,15 +1,16 @@
 import axios from 'axios';
 
 axios.defaults.headers.common['Authorization'] = '43757696-1a32682a4096c08080d446579';
-axios.defaults.baseURL = 'https://pixabay.com/api/';
+axios.defaults.baseURL = 'https://pixabay.com/api';
 
 export const fetchImages = (userRequest) => {
-  return axios.get('', {
+  return axios.get('/', {
     params: {
       q: userRequest,
       image_type: 'photo',
       orientation: 'horizontal',
       safesearch: true,
+      per_page: 15,
     }
   });
 };
