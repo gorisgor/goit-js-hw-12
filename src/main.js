@@ -1,4 +1,3 @@
-
 import { fetchImages } from './js/pixabay-api.js';
 import { renderImageCards } from './js/render-functions.js';
 import SimpleLightbox from 'simplelightbox';
@@ -19,23 +18,23 @@ async function onSearch(event) {
 
   if (userRequest.trim() !== '') {
     loader.classList.remove('is-hidden');
-    await fetchImages(userRequest)
-      .then(data => renderImageCards(data, gallery))
-      .catch(error => {
-        iziToast.show({
-          message: 'Something went WRONG!',
-          error,
-          messageColor: '#fff',
-          backgroundColor: '#b52222',
-          position: 'topRight',
-          progressBar: false,
-        });
-      })
-      .finally(() => {
-        form.reset();
-        loader.classList.add('is-hidden');
-        initLightbox();
+    try {
+      const { data } = await fetchImages(userRequest);
+      renderImageCards(data, gallery);
+    } catch (error) {
+      console.error(error);
+      iziToast.show({
+        message: 'Something went wrong!',
+        messageColor: '#fff',
+        backgroundColor: '#b52222',
+        position: 'topRight',
+        progressBar: false,
       });
+    } finally {
+      form.reset();
+      loader.classList.add('is-hidden');
+      initLightbox();
+    }
   }
 }
 
@@ -45,6 +44,5 @@ function initLightbox() {
     captionsDelay: 250,
     overlayOpacity: 0,
   });
-
   lightbox.refresh();
 }

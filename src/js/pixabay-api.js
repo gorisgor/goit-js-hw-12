@@ -1,10 +1,9 @@
 import axios from 'axios';
-
-axios.defaults.headers.common['Authorization'] = '43757696-1a32682a4096c08080d446579';
-axios.defaults.baseURL = 'https://pixabay.com/api';
+const URL = 'https://pixabay.com/api/';
+const API_KEY = '43757696-1a32682a4096c08080d446579';
 
 export const fetchImages = (userRequest) => {
-  return axios.get('/', {
+  return axios.get(`${URL}?${API_KEY}`, {
     params: {
       q: userRequest,
       image_type: 'photo',
