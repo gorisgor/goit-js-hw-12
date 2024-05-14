@@ -1,4 +1,4 @@
-import axios from 'axios';
+
 import { fetchImages } from './js/pixabay-api.js';
 import { renderImageCards } from './js/render-functions.js';
 import SimpleLightbox from 'simplelightbox';
