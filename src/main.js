@@ -8,6 +8,7 @@ import 'izitoast/dist/css/iziToast.min.css';
 const gallery = document.querySelector('.gallery');
 const searchForm = document.querySelector('.form');
 const loader = document.querySelector('.loader');
+const loadMore = document.querySelector(".load-more")
 
 searchForm.addEventListener('submit', onSearch);
 
@@ -18,6 +19,7 @@ async function onSearch(event) {
 
   if (userRequest.trim() !== '') {
     loader.classList.remove('is-hidden');
+    loadMore.classList.remove('is-hidden');
     try {
       const { data } = await fetchImages(userRequest);
       renderImageCards(data, gallery);
@@ -33,6 +35,7 @@ async function onSearch(event) {
     } finally {
       form.reset();
       loader.classList.add('is-hidden');
+      loadMore.classList.add('is-hidden');
       initLightbox();
     }
   }
