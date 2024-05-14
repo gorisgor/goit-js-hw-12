@@ -25,7 +25,7 @@ export function renderImageCards(data, galleryElement) {
           <p class="card-text">Downloads <span>${downloads}</span></p>
         </div>
       </li> 
-      <button type = "submit" class ="load-more">Load more</button>`;
+      `;
       })
       .join('');
 
