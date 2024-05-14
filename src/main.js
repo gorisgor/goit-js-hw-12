@@ -19,10 +19,11 @@ async function onSearch(event) {
 
   if (userRequest.trim() !== '') {
     loader.classList.remove('is-hidden');
-    loadMore.classList.remove('is-hidden');
+    
     try {
       const { data } = await fetchImages(userRequest);
       renderImageCards(data, gallery);
+      loadMore.classList.remove('is-hidden');
     } catch (error) {
       console.error(error);
       iziToast.show({
