@@ -12,14 +12,14 @@ const loader = document.querySelector('.loader');
 
 searchForm.addEventListener('submit', onSearch);
 
-function onSearch(event) {
+async function onSearch(event) {
   event.preventDefault();
   const form = event.currentTarget;
   const userRequest = form.elements.query.value;
 
   if (userRequest.trim() !== '') {
     loader.classList.remove('is-hidden');
-    fetchImages(userRequest)
+    await fetchImages(userRequest)
       .then(data => renderImageCards(data, gallery))
       .catch(error => {
         iziToast.show({
