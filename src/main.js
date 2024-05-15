@@ -23,7 +23,7 @@ async function onSearch(event) {
     try {
       const { data } = await fetchImages(userRequest);
       renderImageCards(data, gallery);
-      loadMore.classList.remove('is-hidden');
+      loadMore.classList.remove('invisible');
     } catch (error) {
       console.error(error);
       iziToast.show({
@@ -36,7 +36,6 @@ async function onSearch(event) {
     } finally {
       form.reset();
       loader.classList.add('is-hidden');
-      loadMore.classList.add('is-hidden');
       initLightbox();
     }
   }

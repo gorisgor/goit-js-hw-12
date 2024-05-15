@@ -95,6 +95,6 @@
   background-color: #4e75ff;
 }
 
-.load-more.is-hidden {
-  opacity: 0;
+.load-more.invisible {
+  visibility: hidden;
 }
