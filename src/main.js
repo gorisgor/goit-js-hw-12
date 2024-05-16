@@ -4,7 +4,6 @@ import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
-import axios from 'axios';
 
 const gallery = document.querySelector('.gallery');
 const searchForm = document.querySelector('.form');
@@ -17,10 +16,12 @@ let totalPages = 0;
 
 searchForm.addEventListener('submit', onSearch);
 loadMore.addEventListener("click", onLoadMoreBtnClick)
+
 async function onSearch(event) {
   event.preventDefault();
   const form = event.currentTarget;
   userRequest = form.elements.query.value;
+  gallery.innerHTML = "";
 
   if (userRequest.trim() !== '') {
     loader.classList.remove('is-hidden');
@@ -28,7 +29,11 @@ async function onSearch(event) {
     try {
       const { data } = await fetchImages(userRequest);
       renderImageCards(data, gallery);
-      loadMore.classList.remove('invisible');
+      totalPages = Math.ceil(data.totalHits / 15); 
+      if (totalPages > 1) {
+        loadMore.classList.remove('invisible');
+      }
+      
     } catch (error) {
       console.error(error);
       iziToast.show({
@@ -59,19 +64,22 @@ async function onLoadMoreBtnClick(event) {
   event.preventDefault();
   try {
     imagesCurrentPage += 1;
-    const { data } = await fetchImages(userRequest, imagesCurrentPage);
+    const { data } = await fetchImages(userRequest, imagesCurrentPage); 
+    loader.classList.remove('is-hidden');
+    renderImageCards(data, gallery);
     
-    gallery.insertAdjacentHTML('beforeend', renderImageCards(data));
-
-    if (imagesCurrentPage > totalPages) {
+    if (imagesCurrentPage >= totalPages) {
       loadMore.classList.add('invisible');
       loadMore.removeEventListener('click', onLoadMoreBtnClick);
     }
   } catch (error) {
     iziToast.error({
-      message: 'Search params is not valid',
+      message: 'Параметри пошуку недійсні',
       position: 'topRight',
       timeout: 2000,
     });
+  } finally {
+    loader.classList.add('is-hidden');
+    initLightbox();
   }
 }
