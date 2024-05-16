@@ -93,6 +93,7 @@ async function onLoadMoreBtnClick(event) {
       timeout: 2000,
     });
   } finally {
+    smoothScrollOnLoadMore();
     loader.classList.add('is-hidden');
     initLightbox();
   }
