@@ -60,6 +60,19 @@ function initLightbox() {
   lightbox.refresh();
 }
 
+function smoothScrollOnLoadMore (){
+  const imageCard = galleryElement.querySelector('.card');
+  const imageHeight = imageCard.getBoundingClientRect().height;
+  const scrollHeight = imageHeight * 2;
+  console.log(scrollHeight);
+
+  window.scrollBy({
+    top: scrollHeight,
+    left: 0,
+    behavior: 'smooth',
+  });
+};
+
 async function onLoadMoreBtnClick(event) {
   event.preventDefault();
   try {
