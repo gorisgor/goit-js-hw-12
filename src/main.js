@@ -71,10 +71,11 @@ async function onLoadMoreBtnClick(event) {
     if (imagesCurrentPage >= totalPages) {
       loadMore.classList.add('invisible');
       loadMore.removeEventListener('click', onLoadMoreBtnClick);
+      throw new Error
     }
   } catch (error) {
     iziToast.error({
-      message: 'Параметри пошуку недійсні',
+      message: "We're sorry, but you've reached the end of search results.",
       position: 'topRight',
       timeout: 2000,
     });
