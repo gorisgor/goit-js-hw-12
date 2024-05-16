@@ -1,7 +1,7 @@
 import iziToast from 'izitoast';
 import "izitoast/dist/css/iziToast.min.css";
 
-export function renderImageCards(data, galleryElement) {
+export function renderImageCards(data, gallery) {
   if (data.total !== 0) {
     const imagesMarkup = data.hits
       .map(image => {
@@ -28,9 +28,9 @@ export function renderImageCards(data, galleryElement) {
       })
       .join('');
 
-    galleryElement.insertAdjacentHTML('beforeend', imagesMarkup);
+    gallery.insertAdjacentHTML('beforeend', imagesMarkup);
   } else {
-    galleryElement.innerHTML = '';
+    gallery.innerHTML = '';
     iziToast.show({
       message:'Sorry, there are no images matching your search query. Please try again!',
       messageColor: '#fff',

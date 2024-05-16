@@ -61,7 +61,7 @@ function initLightbox() {
 }
 
 function smoothScrollOnLoadMore (){
-  const imageCard = galleryElement.querySelector('.card');
+  const imageCard = gallery.querySelector('.card');
   const imageHeight = imageCard.getBoundingClientRect().height;
   const scrollHeight = imageHeight * 2;
   console.log(scrollHeight);
@@ -93,8 +93,8 @@ async function onLoadMoreBtnClick(event) {
       timeout: 2000,
     });
   } finally {
-    smoothScrollOnLoadMore();
     loader.classList.add('is-hidden');
+    smoothScrollOnLoadMore();
     initLightbox();
   }
 }
