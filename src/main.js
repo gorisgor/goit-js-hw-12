@@ -59,11 +59,9 @@ async function onLoadMoreBtnClick(event) {
   event.preventDefault();
   try {
     imagesCurrentPage += 1;
-    const { data } = await axios.get(userRequest, imagesCurrentPage);
- 
+    const { data } = await fetchImages(userRequest, imagesCurrentPage);
+    
     gallery.insertAdjacentHTML('beforeend', renderImageCards(data));
-
-    // smoothScrollOnLoadMore();
 
     if (imagesCurrentPage > totalPages) {
       loadMore.classList.add('invisible');
