@@ -10,8 +10,12 @@ const searchForm = document.querySelector('.form');
 const loader = document.querySelector('.loader');
 const loadMore = document.querySelector(".load-more")
 
-searchForm.addEventListener('submit', onSearch);
+let userRequest = null;
+let imagesCurrentPage = 1;
+let totalPages = 0;
 
+searchForm.addEventListener('submit', onSearch);
+loadMore.addEventListener("click", onLoadMoreBtnClick)
 async function onSearch(event) {
   event.preventDefault();
   const form = event.currentTarget;
@@ -48,4 +52,28 @@ function initLightbox() {
     overlayOpacity: 0,
   });
   lightbox.refresh();
+}
+
+async function onLoadMoreBtnClick(event) {
+  event.preventDefault();
+  try {
+    imagesCurrentPage += 1;
+    const { data } = await axios.get(userRequest, imagesCurrentPage);
+ 
+    gallery.insertAdjacentHTML('beforeend', renderImageCards(data));
+
+    smoothScrollOnLoadMore();
+
+    if (imagesCurrentPage > totalPages) {
+      loadMore.classList.add('invisible');
+      loadMore.removeEventListener('click', onLoadMoreBtnClick);
+    }
+  } catch (error) {
+    iziToast.error({
+      message: 'Search params is not valid',
+      position: 'topRight',
+      timeout: 2000,
+    });
+  }
+  
 }
