@@ -4,6 +4,7 @@ import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
+import axios from 'axios';
 
 const gallery = document.querySelector('.gallery');
 const searchForm = document.querySelector('.form');
@@ -19,7 +20,7 @@ loadMore.addEventListener("click", onLoadMoreBtnClick)
 async function onSearch(event) {
   event.preventDefault();
   const form = event.currentTarget;
-  const userRequest = form.elements.query.value;
+  userRequest = form.elements.query.value;
 
   if (userRequest.trim() !== '') {
     loader.classList.remove('is-hidden');
@@ -62,7 +63,7 @@ async function onLoadMoreBtnClick(event) {
  
     gallery.insertAdjacentHTML('beforeend', renderImageCards(data));
 
-    smoothScrollOnLoadMore();
+    // smoothScrollOnLoadMore();
 
     if (imagesCurrentPage > totalPages) {
       loadMore.classList.add('invisible');
@@ -75,5 +76,4 @@ async function onLoadMoreBtnClick(event) {
       timeout: 2000,
     });
   }
-  
 }
