@@ -35,13 +35,14 @@ async function onSearch(event) {
       initLightbox();
     } catch (error) {
       console.error(error);
-      iziToast.show({
+      iziToast.error({
         message: 'Something went wrong!',
         messageColor: '#fff',
         backgroundColor: '#b52222',
         position: 'topRight',
         progressBar: false,
       });
+      loader.classList.add('is-hidden');
     } 
     form.reset();
   }
