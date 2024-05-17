@@ -60,10 +60,8 @@ function smoothScrollOnLoadMore (){
   const imageCard = gallery.querySelector('.card');
   const imageHeight = imageCard.getBoundingClientRect().height;
   const scrollHeight = imageHeight * 2;
-  console.log(scrollHeight);
   window.scrollBy({
     top: scrollHeight,
-    left: 0,
     behavior: 'smooth',
   });
 };
