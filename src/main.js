@@ -84,7 +84,7 @@ async function onLoadMoreBtnClick(event) {
     smoothScrollOnLoadMore();
     initLightbox();
   } catch (error) {
-    iziToast.error({
+    iziToast.show({
       message: "We're sorry, but you've reached the end of search results.",
       position: 'topRight',
       timeout: 4000,
