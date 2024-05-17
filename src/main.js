@@ -85,6 +85,7 @@ async function onLoadMoreBtnClick(event) {
     iziToast.show({
       message: "We're sorry, but you've reached the end of search results.",
       position: 'topRight',
+      backgroundColor: "#01e2f2",
       timeout: 4000,
     });
   } 
