@@ -22,10 +22,8 @@ async function onSearch(event) {
   const form = event.currentTarget;
   userRequest = form.elements.query.value;
   gallery.innerHTML = "";
-
   if (userRequest.trim() !== '') {
     loader.classList.remove('is-hidden');
-    
     try {
       const { data } = await fetchImages(userRequest);
       renderImageCards(data, gallery);
@@ -33,7 +31,8 @@ async function onSearch(event) {
       if (totalPages > 1) {
         loadMore.classList.remove('invisible');
       }
-      
+      loader.classList.add('is-hidden');
+      initLightbox();
     } catch (error) {
       console.error(error);
       iziToast.show({
@@ -43,11 +42,8 @@ async function onSearch(event) {
         position: 'topRight',
         progressBar: false,
       });
-    } finally {
-      form.reset();
-      loader.classList.add('is-hidden');
-      initLightbox();
-    }
+    } 
+    form.reset();
   }
 }
 
@@ -65,7 +61,6 @@ function smoothScrollOnLoadMore (){
   const imageHeight = imageCard.getBoundingClientRect().height;
   const scrollHeight = imageHeight * 2;
   console.log(scrollHeight);
-
   window.scrollBy({
     top: scrollHeight,
     left: 0,
@@ -86,15 +81,14 @@ async function onLoadMoreBtnClick(event) {
       loadMore.removeEventListener('click', onLoadMoreBtnClick);
       throw new Error
     }
+    smoothScrollOnLoadMore();
+    initLightbox();
   } catch (error) {
     iziToast.error({
       message: "We're sorry, but you've reached the end of search results.",
       position: 'topRight',
-      timeout: 2000,
+      timeout: 4000,
     });
-  } finally {
-    loader.classList.add('is-hidden');
-    smoothScrollOnLoadMore();
-    initLightbox();
-  }
+  } 
+  loader.classList.add('is-hidden');
 }
